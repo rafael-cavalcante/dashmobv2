@@ -122,3 +122,18 @@ fig_envolvimento_sexo = px.histogram(df_envolvimento_sexo, x="NUM_ENVOLV", y="Qu
 fig_envolvimento_sexo.update_layout(xaxis_title= "Número Envolvidos", yaxis_title= "Quantidade")
 
 col6.plotly_chart(fig_envolvimento_sexo, use_container_width=True)
+
+#Gráfico 10
+df_municipio_ocorrido = df.groupby(["ID_MN_RESI", "LOCAL_OCOR"]).size().reset_index(name="Quantidade")
+
+df_municipio_ocorrido_max = df_municipio_ocorrido.loc[df_municipio_ocorrido.groupby("ID_MN_RESI")["Quantidade"].idxmax()]
+
+df_municipio_ocorrido_max_sorted = df_municipio_ocorrido_max.sort_values(by="Quantidade", ascending=False).head(10)
+
+df_municipio_ocorrido_max_sorted = df_municipio_ocorrido_max_sorted.sort_values("Quantidade", ascending=True)
+
+fig_municipio_ocorrido = px.bar(df_municipio_ocorrido_max_sorted, x="Quantidade", y="ID_MN_RESI", color="LOCAL_OCOR",
+             title='Número de Casos por Município e Local de Ocorrência', labels={'LOCAL_OCOR': 'Local'})
+fig_municipio_ocorrido.update_layout(xaxis_title= "Quantidade", yaxis_title= "Município")
+
+st.plotly_chart(fig_municipio_ocorrido, use_container_width=True)
