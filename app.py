@@ -9,6 +9,10 @@ st.set_page_config(
 
 df = pd.read_csv("dados_violencia_mulheres_ses_2023.csv", delimiter=";")
 
+st.title("📊 DIVM: Um Dashboard de Informação sobre a Violência contra Mulher - 2023")
+
+st.header("Painel sobre casos de Violência `version 1`")
+
 #Variáveis 
 meses = {1: 'Janeiro', 2: 'Fevereiro', 3: 'Março', 4: 'Abril', 5: 'Maio', 6: 'Junho',
          7: 'Julho', 8: 'Agosto', 9: 'Setembro', 10: 'Outubro', 11: 'Novembro', 12: 'Dezembro'}
