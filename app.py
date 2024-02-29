@@ -49,9 +49,18 @@ fig_por_raca.update_layout(xaxis_title= "Raça", yaxis_title= "Quantidade")
 
 col2.plotly_chart(fig_por_raca, use_container_width=True)
 
+col3, col4 = st.columns(2)
+
 #Gráfico 04
 violencia_orient_sexual = df["ORIENT_SEX"].value_counts()
 
 fig_orient_sexual = px.pie(violencia_orient_sexual, values=violencia_orient_sexual.values, names=violencia_orient_sexual.index, color=violencia_orient_sexual.index, title="Distribuição do número de violencias por orientação sexual")
 
-fig_orient_sexual
+col3.plotly_chart(fig_orient_sexual, use_container_width=True)
+
+#Gráfico 05
+contagem_cidades = df['ID_MN_RESI'].value_counts().head(10)
+
+fig_10cidades = px.pie(contagem_cidades, values=contagem_cidades, names=contagem_cidades.index, title="Top 10 munícipiso com maior número de violencias", color=contagem_cidades.index)
+
+col4.plotly_chart(fig_10cidades, use_container_width=True)
