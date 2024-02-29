@@ -114,3 +114,11 @@ fig_tipo_violencia = px.histogram(contagem_violencia, x=["VIOL_FISIC", "VIOL_PSI
 fig_tipo_violencia.update_layout(xaxis_title= "Classificação", yaxis_title= "Quantidade")
 
 col5.plotly_chart(fig_tipo_violencia, use_container_width=True)
+
+#Gráfico 09
+df_envolvimento_sexo = df.groupby(["NUM_ENVOLV", "AUTOR_SEXO"]).size().reset_index(name='Quantidade')
+
+fig_envolvimento_sexo = px.histogram(df_envolvimento_sexo, x="NUM_ENVOLV", y="Quantidade",  color="AUTOR_SEXO",title="Distribuição do número de violencias por sexo autor e numero de envolvidos", text_auto=True, labels={'AUTOR_SEXO': 'Sexo Autor'})
+fig_envolvimento_sexo.update_layout(xaxis_title= "Número Envolvidos", yaxis_title= "Quantidade")
+
+col6.plotly_chart(fig_envolvimento_sexo, use_container_width=True)
