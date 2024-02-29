@@ -104,3 +104,13 @@ fig_les_autop = px.bar(dataset_les_autop, x='FAIXA_ETARIA', y='Quantidade', colo
 fig_les_autop.update_layout(xaxis_title="Idade", yaxis_title="Quantidade")
 
 st.plotly_chart(fig_les_autop, use_container_width=True)
+
+col5, col6 = st.columns(2)
+
+#Gráfico 08
+contagem_violencia = df.groupby(['VIOL_FISIC', 'VIOL_PSICO', "VIOL_SEXU"]).size().reset_index(name='Quantidade')
+
+fig_tipo_violencia = px.histogram(contagem_violencia, x=["VIOL_FISIC", "VIOL_PSICO", "VIOL_SEXU"], y="Quantidade", title="Distribuição do número de violencias por tipo", text_auto=True, labels={'variable': 'Tipo Violencia'})
+fig_tipo_violencia.update_layout(xaxis_title= "Classificação", yaxis_title= "Quantidade")
+
+col5.plotly_chart(fig_tipo_violencia, use_container_width=True)
