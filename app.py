@@ -37,8 +37,7 @@ col1, col2 = st.columns(2)
 contagem_idade = df["NU_IDADE_N"].value_counts()
 
 fig_por_idade = px.bar(contagem_idade, x=contagem_idade.index, y=contagem_idade.values, color=contagem_idade.index, title= "Distribuição do número de violencias por idade", text_auto=True, labels={'NU_IDADE_N': 'Quantidade'})
-
-fig_por_idade.update_layout(title_font_size=25, title_font_color="black", title_x=0.5, xaxis_title= "Idade", yaxis_title= "Quantidade")
+fig_por_idade.update_layout(xaxis_title= "Idade", yaxis_title= "Quantidade")
 
 col1.plotly_chart(fig_por_idade, use_container_width=True)
 
@@ -46,7 +45,13 @@ col1.plotly_chart(fig_por_idade, use_container_width=True)
 contagem_raca = df["CS_RACA"].value_counts()
 
 fig_por_raca = px.bar(contagem_raca, x=contagem_raca.index, y=contagem_raca.values, color=contagem_raca.index, title= "Distribuição do número de violencias por raça", text_auto=True, labels={'CS_RACA': 'Raça'})
-
-fig_por_raca.update_layout(title_font_size=25, title_font_color="black", title_x=0.5, xaxis_title= "Raça", yaxis_title= "Quantidade")
+fig_por_raca.update_layout(xaxis_title= "Raça", yaxis_title= "Quantidade")
 
 col2.plotly_chart(fig_por_raca, use_container_width=True)
+
+#Gráfico 04
+violencia_orient_sexual = df["ORIENT_SEX"].value_counts()
+
+fig_orient_sexual = px.pie(violencia_orient_sexual, values=violencia_orient_sexual.values, names=violencia_orient_sexual.index, color=violencia_orient_sexual.index, title="Distribuição do número de violencias por orientação sexual")
+
+fig_orient_sexual
