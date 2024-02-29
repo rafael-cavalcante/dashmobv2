@@ -31,6 +31,8 @@ fig_violencias_mes.update_layout(xaxis_title= "Mês", yaxis_title= "Quantidade")
 
 st.plotly_chart(fig_violencias_mes, use_container_width=True)
 
+col1, col2 = st.columns(2)
+
 #Gráfico 02
 contagem_idade = df["NU_IDADE_N"].value_counts()
 
@@ -38,4 +40,13 @@ fig_por_idade = px.bar(contagem_idade, x=contagem_idade.index, y=contagem_idade.
 
 fig_por_idade.update_layout(title_font_size=25, title_font_color="black", title_x=0.5, xaxis_title= "Idade", yaxis_title= "Quantidade")
 
-fig_por_idade
+col1.plotly_chart(fig_por_idade, use_container_width=True)
+
+#Gráfico 03
+contagem_raca = df["CS_RACA"].value_counts()
+
+fig_por_raca = px.bar(contagem_raca, x=contagem_raca.index, y=contagem_raca.values, color=contagem_raca.index, title= "Distribuição do número de violencias por raça", text_auto=True, labels={'CS_RACA': 'Raça'})
+
+fig_por_raca.update_layout(title_font_size=25, title_font_color="black", title_x=0.5, xaxis_title= "Raça", yaxis_title= "Quantidade")
+
+col2.plotly_chart(fig_por_raca, use_container_width=True)
