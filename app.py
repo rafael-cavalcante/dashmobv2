@@ -130,14 +130,46 @@ col6.plotly_chart(fig_envolvimento_sexo, use_container_width=True)
 #Gráfico 10
 df_municipio_ocorrido = df.groupby(["ID_MN_RESI", "LOCAL_OCOR"]).size().reset_index(name="Quantidade")
 
-df_municipio_ocorrido_max = df_municipio_ocorrido.loc[df_municipio_ocorrido.groupby("ID_MN_RESI")["Quantidade"].idxmax()]
-
-df_municipio_ocorrido_max_sorted = df_municipio_ocorrido_max.sort_values(by="Quantidade", ascending=False).head(10)
+df_municipio_ocorrido_max_sorted = df_municipio_ocorrido.sort_values(by="Quantidade", ascending=False).head(10)
 
 df_municipio_ocorrido_max_sorted = df_municipio_ocorrido_max_sorted.sort_values("Quantidade", ascending=True)
 
 fig_municipio_ocorrido = px.bar(df_municipio_ocorrido_max_sorted, x="Quantidade", y="ID_MN_RESI", color="LOCAL_OCOR",
-             title='Número de Casos por Município e Local de Ocorrência', labels={'LOCAL_OCOR': 'Local'})
+             title='TOP 10 Municípios com maior número de Ocorrência e Local', labels={'LOCAL_OCOR': 'Local'})
 fig_municipio_ocorrido.update_layout(xaxis_title= "Quantidade", yaxis_title= "Município")
 
 st.plotly_chart(fig_municipio_ocorrido, use_container_width=True)
+
+col7, col8 = st.columns(2)
+
+#Gráficos Dinâmicos
+df_municipios = df['ID_MN_RESI'].unique()
+
+list_municipios = list(df_municipios)
+
+list_municipios.insert(0, "TODOS")
+
+cidade_selecionada = st.selectbox("Município", list_municipios)
+
+if(cidade_selecionada == "TODOS"):
+    df_cidade = df
+else:
+    df_cidade = df[df['ID_MN_RESI'] == cidade_selecionada]
+    
+col7, col8 = st.columns(2)
+
+df_cidade['Total_Viol'] = df_cidade[['VIOL_FISIC', 'VIOL_PSICO', 'VIOL_SEXU']].apply(lambda row: (row == 'Sim').sum(), axis=1)
+
+df_grouped = df_cidade.groupby('DT_NOTIFIC')['Total_Viol'].sum().reset_index()
+
+fig_contagem_viol_por_cidade = px.line(df_grouped, x='DT_NOTIFIC', y='Total_Viol', title=f'Contagem total de violações por mês em {cidade_selecionada}')
+fig_contagem_viol_por_cidade.update_layout(xaxis_title="Mês", yaxis_title="Quantidade")
+
+col7.plotly_chart(fig_contagem_viol_por_cidade, use_container_width=True)
+
+df_envolvimento_sexo_cidade = df_cidade.groupby(["NUM_ENVOLV", "AUTOR_SEXO"]).size().reset_index(name='Quantidade')
+
+fig_envolvimento_sexo_cidade = px.histogram(df_envolvimento_sexo_cidade, x="NUM_ENVOLV", y="Quantidade",  color="AUTOR_SEXO",title=f"Distribuição do número de violencias <br>por sexo autor e numero de envolvidos em {cidade_selecionada}", text_auto=True, labels={'AUTOR_SEXO': 'Sexo Autor'})
+fig_envolvimento_sexo_cidade.update_layout(xaxis_title= "Número Envolvidos", yaxis_title= "Quantidade")
+
+col8.plotly_chart(fig_envolvimento_sexo_cidade, use_container_width=True)
