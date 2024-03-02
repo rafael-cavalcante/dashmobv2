@@ -9,7 +9,7 @@ st.set_page_config(
 
 df = pd.read_csv("dados_violencia_mulheres_ses_2023.csv", delimiter=";")
 
-st.title("📊 DIVM: Um Dashboard de Informação sobre a Violência contra Mulher - 2023")
+st.title("📊 DIVM: Um Dashboard de Informação sobre a Violência contra a Mulher - 2023")
 
 st.header("Painel sobre casos de Violência `version 1`")
 
@@ -79,7 +79,7 @@ col3.plotly_chart(fig_orient_sexual, use_container_width=True)
 #Gráfico 06
 contagem_cidades = df['ID_MN_RESI'].value_counts().head(10)
 
-fig_10cidades = px.pie(contagem_cidades, values=contagem_cidades, names=contagem_cidades.index, title="Top 10 munícipiso com maior número de violencias", color=contagem_cidades.index)
+fig_10cidades = px.pie(contagem_cidades, values=contagem_cidades, names=contagem_cidades.index, title="Top 10 municípios com maior número de violencias", color=contagem_cidades.index)
 
 col4.plotly_chart(fig_10cidades, use_container_width=True)
 
