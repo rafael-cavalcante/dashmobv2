@@ -102,7 +102,7 @@ dataset_les_autop = dataset_les_autop.sort_values('FAIXA_ETARIA', ascending=True
 
 dataset_les_autop['FAIXA_ETARIA'] = dataset_les_autop['FAIXA_ETARIA'].replace(mapeamento_inverso)
 
-fig_les_autop = px.bar(dataset_les_autop, x='FAIXA_ETARIA', y='Quantidade', color='LES_AUTOP', barmode='group', title="Distribuição de número de lesões por faixa etária",
+fig_les_autop = px.bar(dataset_les_autop, x='FAIXA_ETARIA', y='Quantidade', color='LES_AUTOP', barmode='group', title="Distribuição de número de lesões auto pessoal por faixa etária",
                                 text='Quantidade', labels={'LES_AUTOP': 'Lesão autopessoal', 'FAIXA_ETARIA': 'Faixa Etária'})
 
 fig_les_autop.update_layout(xaxis_title="Idade", yaxis_title="Quantidade")
